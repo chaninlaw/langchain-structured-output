@@ -24,7 +24,7 @@ const llm = new Ollama({
   model: 'llama3.2',
   temperature: 0,
   maxRetries: 2,
-  baseUrl: process.env.AI_API_URL,
+  baseUrl: import.meta.env.VITE_AI_API_URL,
 })
 
 function App() {
@@ -42,18 +42,19 @@ function App() {
       setResult(s)
     }
   }
-  console.log('result', result)
 
   return (
     <>
-      <div className="">Message: {result.message}</div>
-      <div className="">Data: {JSON.stringify(result.data)}</div>
+      <div>Message: {result.message}</div>
+      <div>Data: {JSON.stringify(result.data)}</div>
 
       <p>Structured output:</p>
       <input value={query} onChange={(e) => setQuery(e.target.value)} />
       <button onClick={handleClick}>Run</button>
 
-      {JSON.stringify(result)}
+      <pre>
+        <code>{JSON.stringify(result)}</code>
+      </pre>
     </>
   )
 }
